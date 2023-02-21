@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import { Layout } from "./components";
+import { ThemeProvider } from "./context";
+import { Landing, NotFound } from "./pages";
+import { routes } from "./utils";
 
 function App() {
   return (
-    <main className="min-w-screen min-h-screen flex flex-col items-center justify-center bg-primary-800 text-[whitesmoke]">
-      <h1 className="text-5xl text-current">WholeLife</h1>
-    </main>
+    <ThemeProvider initialTheme="light">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="*" element={<NotFound />} />
+          {routes.map(({ href, label, component: Component }, key) => (
+            <Route
+              key={key}
+              path={href}
+              loader={() => <p>Loading ${label}</p>}
+              element={<Layout>{Component}</Layout>}
+            />
+          ))}
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 
