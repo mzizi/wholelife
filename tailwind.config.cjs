@@ -1,10 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        primary: {
+        brand: {
           50: "#f4f4f7",
           100: "#e6e6f0",
           200: "#c8c9d9",
@@ -19,5 +20,14 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: ["lofi"],
+  },
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/container-queries"),
+    require("daisyui"),
+  ],
 };
