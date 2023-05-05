@@ -6,23 +6,26 @@ import { TopNav } from "./TopNav";
 
 export interface LayoutProps {
   children: ReactNode;
+  version?: string;
 }
 
-export const Layout: FC<LayoutProps> = ({ children }) => {
+export const Layout: FC<LayoutProps> = ({ children, version }) => {
   const [showMenu, toggleShowMenu] = useState(true);
 
   return (
-    <main className="w-screen h-full bg-[whitesmoke] text-brand-900 font-serif">
+    <div className="w-screen h-full bg-[whitesmoke] text-brand-900 font-serif">
       <div className="relative w-full h-screen flex gap-4 overflow-x-hidden">
-        {showMenu && <SideNav />}
-        <div className={`flex-1 min-h-[200vh] ${showMenu ? "ml-48" : ""}`}>
-          <TopNav showMenu={showMenu} toggleShowMenu={toggleShowMenu} />
-          <div className="flex flex-col gap-4 p-4 relative">
+        {showMenu && <SideNav version={version} />}
+        <div className={`flex-1 ${showMenu ? "ml-48" : "ml-0"}`}>
+          <header className="sticky left-0 top-0 h-max w-full !z-50">
+            <TopNav showMenu={showMenu} toggleShowMenu={toggleShowMenu} />
             <Breadcrumbs />
-            <div className="p-4 flex-1 w-full">{children}</div>
-          </div>
+          </header>
+          <main className="flex-1 w-full h-full overflow-y-auto bg-[whitesmoke]">
+            {children}
+          </main>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
