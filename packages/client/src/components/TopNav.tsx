@@ -71,7 +71,7 @@ export const NavDropdown: FC<NavDropdownProps> = ({
   className,
 }) => {
   return (
-    <div className="dropdown dropdown-end">
+    <div className="!z-50 dropdown dropdown-end">
       <label
         tabIndex={tabIndex}
         className={`btn btn-ghost btn-circle ${className}`}
@@ -80,7 +80,7 @@ export const NavDropdown: FC<NavDropdownProps> = ({
       </label>
       <ul
         tabIndex={tabIndex}
-        className="menu menu-compact dropdown-content my-3 p-2 shadow bg-brand-100 w-48 font-semibold"
+        className="menu menu-compact rounded-md dropdown-content p-2 shadow shadow-current bg-white w-48 font-semibold"
       >
         {links.map((link) => (
           <li key={link.href} className="hover:bg-brand-200 rounded-md">

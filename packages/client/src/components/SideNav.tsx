@@ -5,28 +5,11 @@ import { Link } from "react-router-dom";
 import { IRoute } from "../types";
 import { routes } from "../utils";
 
-export interface SideNavProps {
-  routes: IRoute[];
+interface SideNavProps {
+  version?: string;
 }
 
-export const SideNavContent: FC<SideNavProps> = ({ routes }) => {
-  return (
-    <div className="w-full h-full flex flex-col gap-4">
-      {routes.map((route) => (
-        <a
-          key={route.href}
-          href={route.href}
-          className="w-full flex items-center px-4 py-2 gap-4 hover:bg-brand-200 hover:text-brand-800 rounded-md font-medium"
-        >
-          <span className="text-current fill-current">{route.icon}</span>
-          <span className="flex-1">{route.label}</span>
-        </a>
-      ))}
-    </div>
-  );
-};
-
-export const SideNav = () => {
+export const SideNav: FC<SideNavProps> = ({ version }) => {
   const commonRoutes = useMemo(
     () => [
       {
@@ -39,12 +22,18 @@ export const SideNav = () => {
   );
 
   return (
-    <aside className="fixed left-0 w-48 h-full bg-brand-900 text-[whitesmoke] transition-all">
+    <aside className="fixed left-0 w-48 h-full bg-black/90 text-[whitesmoke] transition-all">
       <div className="w-full h-full flex flex-col gap-5 p-4">
-        <div className="w-full h-[10vh] flex items-center justify-center">
+        <div className="w-full h-[10vh] flex flex-col gap-2 p-4">
           <h1 className="text-2xl font-sans uppercase">Wholelife</h1>
+          {version && (
+            <small className="w-full place-content-end flex items-center gap-2 uppercase">
+              <span className="text-neutral-500">Version</span>
+              <span className=" text-neutral-400">{version}</span>
+            </small>
+          )}
         </div>
-        <div className="w-full flex-1">
+        <div className="w-full h-full flex-1">
           <SideNavContent routes={routes} />
         </div>
         <div className="w-full justify-self-end py-4">
@@ -63,5 +52,26 @@ export const SideNav = () => {
         </div>
       </div>
     </aside>
+  );
+};
+
+interface SideNavContentProps {
+  routes: IRoute[];
+}
+
+export const SideNavContent: FC<SideNavContentProps> = ({ routes }) => {
+  return (
+    <div className="w-full h-full flex flex-col gap-4">
+      {routes.map((route) => (
+        <a
+          key={route.href}
+          href={route.href}
+          className="w-full flex items-center px-4 py-2 gap-4 hover:bg-brand-200 hover:text-brand-800 rounded-md font-medium"
+        >
+          <span className="text-current fill-current">{route.icon}</span>
+          <span className="flex-1">{route.label}</span>
+        </a>
+      ))}
+    </div>
   );
 };

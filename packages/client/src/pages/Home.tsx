@@ -1,11 +1,13 @@
-import React from "react";
+import { FC, ReactNode } from "react";
 
-import { Layout } from "../components";
+interface Props {
+  children?: ReactNode;
+}
 
-export const Home = () => {
+export const Home: FC<Props> = ({ children }) => {
   return (
-    <div className="w-full h-max">
-      <h1 className="text-3xl text-current">WholeLife</h1>
+    <div className="w-full h-max flex flex-col gap-4">
+      <h1 className="text-3xl text-current">Homepage</h1>
     </div>
   );
 };
