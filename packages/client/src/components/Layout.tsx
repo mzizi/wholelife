@@ -17,11 +17,9 @@ export const Layout: FC<LayoutProps> = ({ children, version }) => {
       <div className="relative w-full h-screen flex gap-4 overflow-x-hidden">
         {showMenu && <SideNav version={version} />}
         <div className={`flex-1 ${showMenu ? "ml-48" : "ml-0"}`}>
-          <header className="sticky left-0 top-0 h-max w-full !z-50">
-            <TopNav showMenu={showMenu} toggleShowMenu={toggleShowMenu} />
-            <Breadcrumbs />
-          </header>
-          <main className="flex-1 w-full h-full overflow-y-auto bg-[whitesmoke]">
+          <TopNav showMenu={showMenu} toggleShowMenu={toggleShowMenu} />
+          <Breadcrumbs />
+          <main className="flex-1 w-full h-full min-h-[70vh] overflow-y-auto bg-white">
             {children}
           </main>
         </div>

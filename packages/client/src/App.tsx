@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import * as packageJSON from "../package.json";
+import { Layout } from "./components";
 import { ThemeProvider } from "./context";
 import { Content, Landing, NotFound } from "./pages";
 import { routes } from "./utils";
@@ -11,7 +12,14 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="*"
+            element={
+              <Layout version={packageJSON.version}>
+                <NotFound />
+              </Layout>
+            }
+          />
           {routes.map((route, key) => {
             if (route.subRoutes && route.subRoutes.length > 0) {
               return (
@@ -28,7 +36,17 @@ function App() {
                   }
                   loader={() => <p>Loading ${route.label}</p>}
                 >
-                  <Route path="*" element={<NotFound />} />
+                  <Route
+                    path="*"
+                    element={
+                      <Content
+                        activeView="page"
+                        title={route.label}
+                        version={packageJSON.version}
+                      />
+                      // <NotFound />
+                    }
+                  />
                   {route.subRoutes.map((subRoute, key) => (
                     <Route
                       key={key}
