@@ -1,6 +1,8 @@
 import { FC, useMemo } from "react";
-import { FiSettings } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { FiChevronDown, FiChevronUp, FiSettings } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+
+import { Disclosure } from "@headlessui/react";
 
 import { IRoute } from "../types";
 import { routes } from "../utils";
@@ -61,16 +63,48 @@ interface SideNavContentProps {
 
 export const SideNavContent: FC<SideNavContentProps> = ({ routes }) => {
   return (
-    <div className="w-full h-full flex flex-col gap-4">
+    <div className="w-full">
       {routes.map((route) => (
-        <a
-          key={route.href}
-          href={route.href}
-          className="w-full flex items-center px-4 py-2 gap-4 hover:bg-brand-200 hover:text-brand-800 rounded-md font-medium"
-        >
-          <span className="text-current fill-current">{route.icon}</span>
-          <span className="flex-1">{route.label}</span>
-        </a>
+        <Disclosure key={route.href}>
+          {({ open }) => (
+            <>
+              <Disclosure.Button
+                as={Link}
+                to={route.href}
+                className={`w-full relative p-2 flex justify-between items-center ${
+                  open && "bg-neutral-800 border-b border-brand-500"
+                }`}
+              >
+                <div className="w-full flex items-center gap-6 rounded">
+                  <span className="text-current fill-current">
+                    {route.icon}
+                  </span>
+                  <span className="w-[12vh] text-left">{route.label}</span>
+                  {route.subRoutes && route.subRoutes.length > 0 && (
+                    <div className="ml-auto w-max">
+                      {open ? <FiChevronDown /> : <FiChevronUp />}
+                    </div>
+                  )}
+                </div>
+              </Disclosure.Button>
+
+              <Disclosure.Panel className="flex flex-col p-2 bg-neutral-800">
+                {route.subRoutes?.map((subRoute) => (
+                  <Link
+                    to={subRoute.href}
+                    key={subRoute.href}
+                    className="flex items-center p-2 gap-6 border-l border-brand-500"
+                  >
+                    <span className="text-current fill-current">
+                      {subRoute.icon}
+                    </span>
+                    <span className="w-[12vh] text-left">{subRoute.label}</span>
+                  </Link>
+                ))}
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
       ))}
     </div>
   );

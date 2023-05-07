@@ -1,6 +1,6 @@
-import { FC, useMemo } from "react";
-import { FiChevronRight } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { FC, Fragment, useMemo } from "react";
+import { FiArrowLeft, FiChevronRight } from "react-icons/fi";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { ILink } from "../types";
 import { routes } from "../utils";
@@ -15,6 +15,7 @@ interface Props {
 
 export const Breadcrumbs: FC<Props> = ({ crumbs }) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const allCrumbs: IBreadcrumbs[] = useMemo(() => {
     let items: IBreadcrumbs[] = [];
@@ -47,14 +48,17 @@ export const Breadcrumbs: FC<Props> = ({ crumbs }) => {
     return items || crumbs;
   }, [location]);
 
+  if (allCrumbs.length < 1) {
+    return null;
+  }
+
   return (
-    <div className="w-full h-full text-brand-800 bg-neutral-200 shadow-md rounded-md">
-      <div className="w-full h-full flex gap-2 items-center p-4">
+    <div className="w-full h-max shadow shadow-current">
+      <div className="w-full flex gap-2 items-center p-4">
         {allCrumbs.map((crumb, idx) => (
-          <>
+          <Fragment key={`breadcrumb-${Math.random() * idx}`}>
             <Link
               to={crumb.href}
-              key={`breadcrumb-${Math.random() * idx}`}
               className="w-max h-full link hover:link-primary text-brand-800"
             >
               <div className="flex item-center capitalize gap-2">
@@ -65,18 +69,18 @@ export const Breadcrumbs: FC<Props> = ({ crumbs }) => {
             {allCrumbs.length - 1 !== allCrumbs.indexOf(crumb) ? (
               <FiChevronRight className="text-md" />
             ) : null}
-          </>
+          </Fragment>
         ))}
         {allCrumbs.length > 1 && (
-          <Link
-            to={`/${location.pathname.split("/")[1]}`}
-            className="w-max ml-auto h-full link hover:link-primary text-brand-800"
+          <button
+            onClick={() => navigate(-1)}
+            className="ml-auto h-full btn-sm btn-group btn-primary rounded-md items-center text-white"
           >
-            <div className="flex item-center capitalize gap-2">
-              {/* <span className="text-md">{crumb.icon}</span> */}
+            <div className="w-max flex item-center capitalize gap-2">
+              <FiArrowLeft fontSize="1.25rem" />
               <span className="text-sm">Back</span>
             </div>
-          </Link>
+          </button>
         )}
       </div>
     </div>
