@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import * as packageJSON from "../package.json";
 import { Layout } from "./components";
 import { ThemeProvider } from "./context";
+import { routes } from "./lib";
 import { Content, Landing, NotFound } from "./pages";
-import { routes } from "./utils";
 
 function App() {
   return (

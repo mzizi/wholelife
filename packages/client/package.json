@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "@headlessui/react": "^1.7.14",
+    "@lucia-auth/adapter-postgresql": "^1.0.0",
+    "@lucia-auth/adapter-prisma": "^2.0.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.0",
     "@tailwindcss/forms": "^0.5.3",
@@ -28,7 +30,9 @@
     "@vitejs/plugin-react-swc": "^3.0.0",
     "autoprefixer": "^10.4.13",
     "daisyui": "^2.50.2",
+    "lucia-auth": "^1.5.0",
     "postcss": "^8.4.21",
+    "prisma": "^4.13.0",
     "react-icons": "^4.7.1",
     "tailwindcss": "^3.2.7",
     "typescript": "^4.9.3",
