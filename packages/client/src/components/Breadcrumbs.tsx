@@ -2,8 +2,8 @@ import { FC, Fragment, useMemo } from "react";
 import { FiArrowLeft, FiChevronRight } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import { routes } from "../lib";
 import { ILink } from "../types";
-import { routes } from "../utils";
 
 type IBreadcrumbs = Pick<ILink, "href" | "icon" | "label"> & {
   active?: boolean;

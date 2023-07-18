@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Disclosure } from "@headlessui/react";
 
+import { routes } from "../lib";
 import { IRoute } from "../types";
-import { routes } from "../utils";
 
 interface SideNavProps {
   version?: string;
