@@ -2,9 +2,6 @@
   "name": "@mzizi/wholelife",
   "version": "0.0.1",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build"
